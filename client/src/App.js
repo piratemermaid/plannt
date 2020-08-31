@@ -7,13 +7,13 @@ import RequireAuth from "./components/RequireAuth";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Home from "./pages/Home";
-import Page from "./pages/Page";
+import AddPlant from "./pages/AddPlant";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authenticated: false, playthrough: null };
+        this.state = { authenticated: false, plants: [], plans: [] };
 
         this.authenticateUser = this.authenticateUser.bind(this);
     }
@@ -49,13 +49,20 @@ class App extends Component {
             .catch((err) => {
                 console.log(err);
             });
+
+        const userData = await axios({
+            method: "get",
+            url: "/api/user"
+        });
+        const { plants, plans } = userData.data;
+        this.setState({ plants, plans });
     }
 
     render() {
-        const { authenticated, playthrough } = this.state;
+        const { authenticated, plants, plans } = this.state;
 
         const AuthHome = RequireAuth(Home);
-        const AuthPage = RequireAuth(Page);
+        const AuthAddPlant = RequireAuth(AddPlant);
 
         return (
             <div className="App">
@@ -77,6 +84,8 @@ class App extends Component {
                                 <AuthHome
                                     authenticated={authenticated}
                                     authenticateUser={this.authenticateUser}
+                                    plants={plants}
+                                    plans={plans}
                                 />
                             )}
                         />
@@ -84,7 +93,6 @@ class App extends Component {
                             path="/login"
                             render={() => (
                                 <Login
-                                    playthrough={playthrough}
                                     authenticateUser={this.authenticateUser}
                                 />
                             )}
@@ -98,9 +106,9 @@ class App extends Component {
                             )}
                         />
                         <Route
-                            path="/page"
+                            path="/add_plant"
                             render={() => (
-                                <AuthPage authenticated={authenticated} />
+                                <AuthAddPlant authenticated={authenticated} />
                             )}
                         />
                     </Switch>

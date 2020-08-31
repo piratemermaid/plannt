@@ -1,30 +1,24 @@
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
 
 const Home = (props) => {
-    const logOut = () => {
-        axios({
-            method: "get",
-            url: "/api/account/logout"
-        })
-            .then((res) => {
-                if (res.data.logout === "success") {
-                    props.authenticateUser(false);
-                    props.history.push("/");
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+    const { plants } = props;
 
     return (
         <div>
-            <h1>Home</h1>
+            <h2>Your Plants</h2>
+            {plants.length < 1 ? (
+                <p>You have no plants</p>
+            ) : (
+                <ul>
+                    {plants.map(({ name }) => {
+                        return <li>{name}</li>;
+                    })}
+                </ul>
+            )}
+            <Link to="/add_plant">Add Plant</Link>
         </div>
     );
 };
 
-export default withRouter(Home);
+export default Home;
