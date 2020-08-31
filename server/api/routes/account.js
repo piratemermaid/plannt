@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { knex } = require("../models/config");
+const { knex } = require("../../db/config");
 const bcrypt = require("bcrypt");
 const { getAccount, hash, Session, setSession } = require("../helpers/account");
 

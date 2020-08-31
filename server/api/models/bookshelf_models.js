@@ -1,4 +1,4 @@
-const { bookshelf } = require("./config");
+const { bookshelf } = require("../db/config");
 
 const User = bookshelf.model("User", {
     tableName: "users"

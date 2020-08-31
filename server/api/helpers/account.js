@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const uuid = require("uuid/v4");
-const { knex } = require("../models/config");
+const { knex } = require("../../db/config");
 const { saltRounds } = require("../../secrets");
 
 async function getAccount(username) {
