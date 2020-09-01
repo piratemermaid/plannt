@@ -8,12 +8,13 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Home from "./pages/Home";
 import AddPlant from "./pages/AddPlant";
+import PlantPlan from "./pages/PlantPlan";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authenticated: false, plants: [], plans: [] };
+        this.state = { authenticated: false, plans: [] };
 
         this.authenticateUser = this.authenticateUser.bind(this);
     }
@@ -54,15 +55,16 @@ class App extends Component {
             method: "get",
             url: "/api/user"
         });
-        const { plants, plans } = userData.data;
-        this.setState({ plants, plans });
+        const { plans } = userData.data;
+        this.setState({ plans });
     }
 
     render() {
-        const { authenticated, plants, plans } = this.state;
+        const { authenticated, plans } = this.state;
 
         const AuthHome = RequireAuth(Home);
         const AuthAddPlant = RequireAuth(AddPlant);
+        const AuthPlantPlan = RequireAuth(PlantPlan);
 
         return (
             <div className="App">
@@ -84,7 +86,6 @@ class App extends Component {
                                 <AuthHome
                                     authenticated={authenticated}
                                     authenticateUser={this.authenticateUser}
-                                    plants={plants}
                                     plans={plans}
                                 />
                             )}
@@ -109,6 +110,15 @@ class App extends Component {
                             path="/add_plant"
                             render={() => (
                                 <AuthAddPlant authenticated={authenticated} />
+                            )}
+                        />
+                        <Route
+                            path="/plan/:name"
+                            render={() => (
+                                <AuthPlantPlan
+                                    authenticated={authenticated}
+                                    plans={plans}
+                                />
                             )}
                         />
                     </Switch>
