@@ -35,6 +35,7 @@ router.get("/", async function (req, res) {
                     outdoor,
                     temperature,
                     humidity,
+                    harvest_instructions,
                     lifespan,
                     notes,
                     plant
@@ -49,6 +50,7 @@ router.get("/", async function (req, res) {
                         outdoor,
                         temperature,
                         humidity,
+                        harvest_instructions,
                         lifespan,
                         notes,
                         name: plant.name,

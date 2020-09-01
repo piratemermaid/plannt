@@ -10,7 +10,8 @@ const plants = [
         name: "Tradescantia Nanouk",
         nickname: "Pink Wandering Jew",
         type: "succulent"
-    }
+    },
+    { name: "Pink Variegated Lemon Tree", nickname: null, type: "citrus" }
 ];
 
 const plans = [
@@ -46,6 +47,19 @@ const plans = [
             humidity: null,
             lifespan: { type: "years", amt: 10 },
             notes: "Trim to keep from falling over on itself as it grows"
+        }
+    },
+    {
+        plantName: "Pink Variegated Lemon Tree",
+        username: "testuser",
+        instructions: {
+            watering_days: 7,
+            sunlight_level: "Bright direct",
+            indoor: true,
+            outdoor: true,
+            temperature: "hot",
+            harvest_instructions: "Ready to harvest when fruit is stripy",
+            notes: "Bring inside in winter and use grow light"
         }
     }
 ];

@@ -22,6 +22,7 @@ const PlantPlan = (props) => {
         outdoor,
         temperature,
         humidity,
+        harvest_instructions,
         lifespan,
         notes
     } = plan;
@@ -72,6 +73,12 @@ const PlantPlan = (props) => {
                 ) : null}
                 {humidity ? <PlanRow string={`Humidity: ${humidity}`} /> : null}
             </ul>
+            {harvest_instructions ? <h4>Harvesting</h4> : null}
+            {harvest_instructions ? (
+                <ul>
+                    <PlanRow string={harvest_instructions} />
+                </ul>
+            ) : null}
             {lifespan ? <h4>Lifespan</h4> : null}
             {lifespan ? (
                 <ul>

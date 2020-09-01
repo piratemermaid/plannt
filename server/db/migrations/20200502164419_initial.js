@@ -27,8 +27,9 @@ exports.up = async function (knex) {
         table.string("repot");
         table.boolean("indoor");
         table.boolean("outdoor");
-        table.integer("temperature");
-        table.integer("humidity");
+        table.string("temperature");
+        table.string("humidity");
+        table.string("harvest_instructions");
         table.jsonb("lifespan"); //might rename
         table.text("notes");
     });
