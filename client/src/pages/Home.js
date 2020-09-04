@@ -21,7 +21,7 @@ const Home = (props) => {
                     })}
                 </ul>
             )}
-            <Link to="/add_plant">Add Plant Plan</Link>
+            <Link to="/search_plant">Add Plant Plan</Link>
         </div>
     );
 };

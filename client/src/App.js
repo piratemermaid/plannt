@@ -7,6 +7,7 @@ import RequireAuth from "./components/RequireAuth";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Home from "./pages/Home";
+import SearchPlant from "./pages/SearchPlant";
 import AddPlant from "./pages/AddPlant";
 import PlantPlan from "./pages/PlantPlan";
 
@@ -63,6 +64,7 @@ class App extends Component {
         const { authenticated, plans } = this.state;
 
         const AuthHome = RequireAuth(Home);
+        const AuthSearchPlant = RequireAuth(SearchPlant);
         const AuthAddPlant = RequireAuth(AddPlant);
         const AuthPlantPlan = RequireAuth(PlantPlan);
 
@@ -103,6 +105,14 @@ class App extends Component {
                             render={() => (
                                 <Signup
                                     authenticateUser={this.authenticateUser}
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/search_plant"
+                            render={() => (
+                                <AuthSearchPlant
+                                    authenticated={authenticated}
                                 />
                             )}
                         />

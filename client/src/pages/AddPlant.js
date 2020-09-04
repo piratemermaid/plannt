@@ -1,19 +1,45 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class AddPlant extends Component {
     constructor() {
         super();
 
-        this.state = { name: "", nickname: "", type: "" };
+        this.state = {
+            name: "",
+            nickname: "",
+            type: "",
+            startedAdding: false,
+            finishedAdding: false,
+            addError: ""
+        };
     }
 
     onInputChange = (e, inputName) => {
-        this.setState({ [inputName]: e.target.value });
+        this.setState({ [inputName]: e.target.value, addError: "" });
     };
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
+        this.setState({ startedAdding: true });
+
+        const { name, nickname, type } = this.state;
+
+        const { data } = await axios({
+            method: "post",
+            url: "/api/app/add_plant",
+            params: { name, nickname, type }
+        });
+
+        if (data.error) {
+            this.setState({
+                addError: data.error,
+                startedAdding: false,
+                finishedAdding: false
+            });
+        } else if (data.success) {
+            this.setState({ finishedAdding: true });
+        }
     };
 
     renderInput = (inputName) => {
@@ -27,7 +53,16 @@ class AddPlant extends Component {
         );
     };
 
+    componentDidUpdate() {
+        const { name, startedAdding, finishedAdding } = this.state;
+        if (startedAdding && finishedAdding) {
+            this.props.history.push(`/plan/${name}`);
+        }
+    }
+
     render() {
+        const { startedAdding, addError } = this.state;
+
         return (
             <div>
                 <h2>Add Plant</h2>
@@ -36,6 +71,8 @@ class AddPlant extends Component {
                     {this.renderInput("nickname")}
                     {this.renderInput("type")}
                     <button onClick={(e) => this.onSubmit(e)}>Add</button>
+                    {startedAdding ? <p className="italic">Adding...</p> : null}
+                    {addError ? <p className="error">{addError}</p> : null}
                 </form>
             </div>
         );

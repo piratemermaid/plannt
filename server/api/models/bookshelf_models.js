@@ -18,4 +18,4 @@ const Plan = bookshelf.model("Plan", {
     }
 });
 
-module.exports = { User };
+module.exports = { User, Plant };

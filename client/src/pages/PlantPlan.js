@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React from "react";
+import axios from "axios";
 import { withRouter } from "react-router";
 import PlanRow from "../components/PlanRow";
 
@@ -11,7 +12,17 @@ const PlantPlan = (props) => {
         return "loading...";
     }
 
-    const plan = _.find(plans, { name });
+    let plan = _.find(plans, { name });
+
+    if (!plan) {
+        return (
+            <div>
+                <h2>Plant Plan</h2>
+                <h3>{name}</h3>
+                <a onClick={() => startNewPlan({ name })}>Start Plan</a>
+            </div>
+        );
+    }
 
     const {
         watering_instructions,
@@ -98,3 +109,11 @@ const PlantPlan = (props) => {
 };
 
 export default withRouter(PlantPlan);
+
+const startNewPlan = async ({ name }) => {
+    await axios({
+        method: "post",
+        url: "/api/user/new_plan",
+        params: { name }
+    });
+};
